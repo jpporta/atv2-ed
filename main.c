@@ -22,16 +22,16 @@ int main() {
                 system("clear");
                 switch (op) {
                 case 1:
-                        inserirAluno(inicio, ultimo);
+                        inserirAluno(&inicio, &ultimo);
                         break;
                 case 2:
-                        removerCadastro(inicio, ultimo);
+                        removerCadastro(&inicio, &ultimo);
                         break;
                 case 3:
-                        buscarRA();
+                        buscarRA(&inicio, &ultimo);
                         break;
                 case 4:
-                        buscarNome();
+                        buscarNome(&inicio, &ultimo);
                         break;
                 case 5:
                         listar();

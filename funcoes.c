@@ -4,26 +4,26 @@
 #include <string.h>
 //***************************************************************************************************
 // INSERIR DO ALUNO
-void inserirAluno(struct tipoAluno *i, struct tipoAluno *f) {
-        if (i == NULL) {
-                i = (struct tipoAluno *)malloc(sizeof(struct tipoAluno));
-                f = i;
+void inserirAluno(struct tipoAluno **i, struct tipoAluno **f) {
+        if (*i == NULL) {
+                *i = (struct tipoAluno *)malloc(sizeof(struct tipoAluno));
+                *f = *i;
         } else {
-                f->prox = (struct tipoAluno *)malloc(sizeof(struct tipoAluno));
-                f = f->prox;
+                (*f)->prox = (struct tipoAluno *)malloc(sizeof(struct tipoAluno));
+                *f = (*f)->prox;
         }
-        if ((int)f == -1) {
+        if ((int)*f == -1) {
                 printf("\t---HEAP OVERFLOW----\nEnter para continuar\n");
                 while (getchar() != '\n') ;
                 getchar();
         } else {
-                f->prox = NULL;
+                (*f)->prox = NULL;
                 printf("\tNome:\n");
-                scanf("%s", (f->nome));
+                scanf("%s", ((*f)->nome));
                 printf("\tRA:\n");
-                scanf("%ld", &(f->ra));
+                scanf("%ld", &((*f)->ra));
                 printf("\tNota:\n");
-                scanf("%f", &(f->nota));
+                scanf("%f", &((*f)->nota));
 
                 printf("SUCESSO");
                 while (getchar() != '\n') ;
@@ -32,24 +32,24 @@ void inserirAluno(struct tipoAluno *i, struct tipoAluno *f) {
 }
 //***************************************************************************************************
 // REMOVER DO ALUNO
-void removerCadastro(struct tipoAluno *i, struct tipoAluno *f) {
+void removerCadastro(struct tipoAluno **i, struct tipoAluno **f) {
         struct tipoAluno *antecessor = NULL, *dobby;
         long int ra;
         printf("\tRA a ser desmatriculado:\n");
         scanf("%ld", &ra);
-        //antecessor = i;
-        if(i != NULL) {
-                if(i->ra == ra) {
-                        dobby = i;
-                        i = i->prox;
+        antecessor = *i;
+        if(*i != NULL) {
+                if((*i)->ra == ra) {
+                        dobby = *i;
+                        *i = (*i)->prox;
                         free(dobby);
                 }
                 else{
                         do {
-                                if(antecessor->prox == f) {
-                                        if(f->ra == ra) {
-                                                dobby = f;
-                                                f = antecessor;
+                                if(antecessor->prox == *f) {
+                                        if((*f)->ra == ra) {
+                                                dobby = *f;
+                                                *f = antecessor;
                                                 free(dobby);
                                                 break;
                                         }
@@ -75,11 +75,13 @@ void removerCadastro(struct tipoAluno *i, struct tipoAluno *f) {
 }
 //***************************************************************************************************
 // BUSCAR POR RA DO ALUNO
-void buscarRA(struct tipoAluno *i, struct tipoAluno *f, long int ra) {
+void buscarRA(struct tipoAluno **i, struct tipoAluno **f) {
+        struct tipoAluno *atual;
+        atual = *i;
 }
 //***************************************************************************************************
 // BUSCAR POR NOME DO ALUNO
-void buscarNome(struct tipoAluno *i, struct tipoAluno *f, char *nome) {
+void buscarNome(struct tipoAluno **i, struct tipoAluno **f) {
 }
 //***************************************************************************************************
 // LISTAR TODOS
