@@ -51,11 +51,13 @@ void removerCadastro(struct tipoAluno **i, struct tipoAluno **f) {
                                                 dobby = *f;
                                                 *f = antecessor;
                                                 free(dobby);
+                                                (*f)->prox = NULL;
                                                 break;
                                         }
                                 }else{
                                         if((antecessor->prox)->ra == ra) {
                                                 dobby = antecessor->prox;
+                                                antecessor->prox = (antecessor->prox)->prox;
                                                 free(dobby);
                                                 break;
                                         }
@@ -65,10 +67,10 @@ void removerCadastro(struct tipoAluno **i, struct tipoAluno **f) {
                 }
         }
         if(antecessor == NULL) {
-                printf("\tAluno ainda nao cadastrado\n");
+                printf("\tAluno ainda nao cadastrado");
         }
         else{
-                printf("\tSUCESSO\n");
+                printf("SUCESSO");
         }
         while (getchar() != '\n') ;
         getchar();
@@ -77,11 +79,43 @@ void removerCadastro(struct tipoAluno **i, struct tipoAluno **f) {
 // BUSCAR POR RA DO ALUNO
 void buscarRA(struct tipoAluno **i, struct tipoAluno **f) {
         struct tipoAluno *atual;
+        long int ra;
         atual = *i;
+        printf("\tRA a ser procurado:\n");
+        scanf("%ld", &ra);
+        do {
+                if(atual->ra == ra) break;
+                atual = atual->prox;
+        } while(atual != NULL);
+        if(atual == NULL) {
+                printf("\n\tALUNO NAO ENCONTRADO\n");
+        }
+        else{
+                printf("\tAluno: %s\n\t  RA: %ld\n\t  Nota: %.2f", (atual->nome), (atual->ra), (atual->nota));
+        }
+        while (getchar() != '\n') ;
+        getchar();
 }
 //***************************************************************************************************
 // BUSCAR POR NOME DO ALUNO
 void buscarNome(struct tipoAluno **i, struct tipoAluno **f) {
+        struct tipoAluno *atual;
+        char nome[50];
+        atual = *i;
+        printf("\tNome a ser procurado:\n");
+        scanf("%s", nome);
+        do {
+                if(strcmp(atual->nome, nome) == 0) break;
+                atual = atual->prox;
+        } while(atual != NULL);
+        if(atual == NULL) {
+                printf("\n\tALUNO NAO ENCONTRADO\n");
+        }
+        else{
+                printf("\tAluno: %s\n\t  RA: %ld\n\t  Nota: %.2f", (atual->nome), (atual->ra), (atual->nota));
+        }
+        while (getchar() != '\n') ;
+        getchar();
 }
 //***************************************************************************************************
 // LISTAR TODOS
